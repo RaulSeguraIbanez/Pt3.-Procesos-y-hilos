@@ -2,17 +2,19 @@ package pt3_procesos_hilos;
 import java.util.Scanner;
 
 public class main {
+	private static int tamañoMatriz1 = 0;
+	private static int columnasMatriz1 = 0;
+	private static int tamañoMatriz2 = 0;
+	private static int columnasMatriz2 = 0;
+	
 	public static void main(String[] args) {
+		
 		Scanner sI = new Scanner(System.in);
-		int tamañoMatriz1 = 0;
-		int columnasMatriz1 = 0;
-		int tamañoMatriz2 = 0;
-		int columnasMatriz2 = 0;
 		
 		System.out.println("Se requiere que se introduzcan los datos para definir el tamaño de las matrices. No se aceptarán valores inferiores a 1 o superiores a 20");
 		
 		System.out.println("Introduce el numero de filas que quieres que tenga la primera matriz");
-		tamañoMatriz1 = sI.nextInt();
+		main.tamañoMatriz1 = sI.nextInt();
 		
 		System.out.println("Introduce el numero de columnas que quieres que tenga la primera matriz");
 		columnasMatriz1 = sI.nextInt();
@@ -52,7 +54,17 @@ public class main {
 		
 		Scanner sS1 = new Scanner(System.in);
 		
+		String numMatriz1 = sS1.nextLine();
 		
+		System.out.println("Introduce todos valores para la matriz 2 en una sola linea, separados por un espacio");
+		System.out.println("Si los numeros introducidos son '1 2 3 4', en una matriz 2/2, sería:");
+		System.out.println("1 2");
+		System.out.println("3 4");
+		
+		String numMatriz2 = sS1.nextLine();
+		
+		crearMatricesBase(numMatriz1,numMatriz2);
+
 		
 	}
 	public static void introducirFichero() {
@@ -62,5 +74,60 @@ public class main {
 		System.out.println("3 4");
 		
 		Scanner sS2 = new Scanner(System.in);
+		
+		System.out.println("Introduce la ruta de directorio del fichero .txt con el contenido indicado");
+		
+		String ficheroTxt = sS2.nextLine();
+		
+		leerFichero.leerFichero(ficheroTxt);
 	}
+	
+	public static void crearMatricesBase(String sMatriz1, String sMatriz2) {
+		
+        String[] numMatriz1 = sMatriz1.split(" ");
+        String[] numMatriz2 = sMatriz2.split(" ");
+		
+		int matriz1[][] = new int[tamañoMatriz1][columnasMatriz1];
+		int matriz2[][] = new int[tamañoMatriz2][columnasMatriz2];
+		
+        // Llenar la primera matriz
+        llenarMatriz(matriz1, numMatriz1);
+
+        // Llenar la segunda matriz
+        llenarMatriz(matriz2, numMatriz2);
+
+        // Mostrar las matrices
+        System.out.println("Matriz 1:");
+        mostrarMatriz(matriz1);
+        System.out.println("Matriz 2:");
+        mostrarMatriz(matriz2);
+        
+        calculoMatriz3(matriz1,matriz2);
+    }
+
+    // Método para llenar una matriz con los números de una cadena
+    public static void llenarMatriz(int[][] matriz, String[] numeros) {
+        int fila = 0;
+        int columna = 0;
+        for (String numero : numeros) {
+            matriz[fila][columna] = Integer.parseInt(numero);
+            columna++;
+            if (columna == matriz[0].length) {
+                columna = 0;
+                fila++;
+                if (fila == matriz.length) {
+                    break; // Matriz completamente llena
+                }
+            }
+        }
+    }
+    public static void mostrarMatriz(int[][] matriz) {
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[0].length; j++) {
+                System.out.print(matriz[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    
 }
