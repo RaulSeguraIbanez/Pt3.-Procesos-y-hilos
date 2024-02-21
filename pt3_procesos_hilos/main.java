@@ -139,7 +139,8 @@ public class main {
         opcion = sR.nextLine();
         if(opcion.equals("1")) {
         	inicioCalculos();
-        } else if(opcion.equals("2")) {
+        } else {
+        	System.out.println("Saliendo...");
         	System.exit(1);
         }
 	}
