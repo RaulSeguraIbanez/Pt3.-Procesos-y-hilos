@@ -2,10 +2,10 @@ package pt3_procesos_hilos;
 import java.util.Scanner;
 
 public class main {
-	private static int tamañoMatriz1 = 0;
-	private static int columnasMatriz1 = 0;
-	private static int tamañoMatriz2 = 0;
-	private static int columnasMatriz2 = 0;
+	public static int tamañoMatriz1 = 0;
+	public static int columnasMatriz1 = 0;
+	public static int tamañoMatriz2 = 0;
+	public static int columnasMatriz2 = 0;
 	
 	public static void main(String[] args) {
 		
@@ -102,7 +102,7 @@ public class main {
         System.out.println("Matriz 2:");
         mostrarMatriz(matriz2);
         
-        calculoMatriz3(matriz1,matriz2);
+        calculoMatriz3.calculo(matriz1,matriz2);
     }
 
     // Método para llenar una matriz con los números de una cadena
