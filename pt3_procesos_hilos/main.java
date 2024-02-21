@@ -30,12 +30,18 @@ public class main {
 			System.exit(1);
 		}
 		
-		System.out.println("Las matrices serán de " + columnasMatriz1 + "/" + tamañoMatriz1 + " y " + columnasMatriz2 + "/" + tamañoMatriz2 + ", respectivamente");
 		
+		System.out.println("Las matrices serán de " + columnasMatriz1 + "/" + tamañoMatriz1 + " y " + columnasMatriz2 + "/" + tamañoMatriz2 + ", respectivamente");
+	
+	inicioCalculos();
+	}
+	public static void inicioCalculos() {
+		Scanner sI2 = new Scanner(System.in);
+
 		System.out.println("Indica como quieres introducir los valores");
 		System.out.println("1. Por consola. 2.Fichero txt");
 		
-		int seleccion = sI.nextInt();
+		int seleccion = sI2.nextInt();
 		
 		if(seleccion == 1) {
 			introducirManual();
@@ -102,8 +108,41 @@ public class main {
         System.out.println("Matriz 2:");
         mostrarMatriz(matriz2);
         
-        calculoMatriz3.calculo(matriz1,matriz2);
-    }
+        Thread[][] threads = new Thread[tamañoMatriz1][columnasMatriz2];
+
+        for (int i = 0; i < tamañoMatriz1; i++) {
+            for (int j = 0; j < columnasMatriz2; j++) {
+                threads[i][j] = new Thread(new CalculoMatriz3Runnable(matriz1, matriz2, i, j));
+                threads[i][j].start();
+            }
+        }
+
+        // Esperar a que todos los hilos terminen
+        try {
+            for (int i = 0; i < tamañoMatriz1; i++) {
+                for (int j = 0; j < columnasMatriz2; j++) {
+                    threads[i][j].join();
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Matriz 3:");
+        mostrarMatriz(CalculoMatriz3Runnable.getResultado());
+        
+        String opcion = "";
+        System.out.println("¿Quieres multiplicar otras 2 matrices? No podrás modificar el tamaño de las mismas");
+        System.out.println("1.Si/ 2.No");
+        Scanner sR = new Scanner(System.in);
+        
+        opcion = sR.nextLine();
+        if(opcion.equals("1")) {
+        	inicioCalculos();
+        } else if(opcion.equals("2")) {
+        	System.exit(1);
+        }
+	}
 
     // Método para llenar una matriz con los números de una cadena
     public static void llenarMatriz(int[][] matriz, String[] numeros) {
@@ -121,6 +160,7 @@ public class main {
             }
         }
     }
+
     public static void mostrarMatriz(int[][] matriz) {
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[0].length; j++) {
@@ -129,5 +169,4 @@ public class main {
             System.out.println();
         }
     }
-    
-}
+    }
