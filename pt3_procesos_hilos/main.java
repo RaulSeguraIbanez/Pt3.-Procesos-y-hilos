@@ -96,13 +96,12 @@ public class main {
 		int matriz1[][] = new int[tamañoMatriz1][columnasMatriz1];
 		int matriz2[][] = new int[tamañoMatriz2][columnasMatriz2];
 		
-        // Llenar la primera matriz
+
         llenarMatriz(matriz1, numMatriz1);
 
-        // Llenar la segunda matriz
         llenarMatriz(matriz2, numMatriz2);
 
-        // Mostrar las matrices
+
         System.out.println("Matriz 1:");
         mostrarMatriz(matriz1);
         System.out.println("Matriz 2:");
@@ -117,7 +116,6 @@ public class main {
             }
         }
 
-        // Esperar a que todos los hilos terminen
         try {
             for (int i = 0; i < tamañoMatriz1; i++) {
                 for (int j = 0; j < columnasMatriz2; j++) {
@@ -145,7 +143,6 @@ public class main {
         }
 	}
 
-    // Método para llenar una matriz con los números de una cadena
     public static void llenarMatriz(int[][] matriz, String[] numeros) {
         int fila = 0;
         int columna = 0;
